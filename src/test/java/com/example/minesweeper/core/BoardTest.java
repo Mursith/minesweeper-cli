@@ -61,4 +61,14 @@ public class BoardTest {
 
 
     }
+
+    @Test
+    void revealingSameCellTwiceIsIdempotent() {
+        var board = Board.create(3, Set.of(Position.of(2,2)));
+        var o1 = board.reveal(0,0);
+        var o2 = board.reveal(0,0);
+        assertFalse(o1.detonated());
+        assertEquals(0, o2.revealedCells()); // second reveal does nothing
+    }
+
 }
